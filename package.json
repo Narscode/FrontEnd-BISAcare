@@ -1,0 +1,32 @@
+{
+  "name": "frontend-bisacare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Narscode/FrontEnd-BISAcare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Narscode/FrontEnd-BISAcare/issues"
+  },
+  "homepage": "https://github.com/Narscode/FrontEnd-BISAcare#readme",
+  "dependencies": {
+    "expo": "^53.0.20",
+    "metro": "^0.72.3",
+    "metro-config": "^0.72.3",
+    "react": "^19.1.1",
+    "react-native": "^0.80.2"
+  },
+  "devDependencies": {
+    "@react-native-community/cli": "^20.0.0",
+    "@react-native/metro-config": "^0.80.2"
+  }
+}
