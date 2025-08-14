@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import ClaimTracker from './src/components/ClaimTracker';
+import ClaimTracker from './src/components/ClaimTracker.tsx';
 
 const App = () => {
   return (
