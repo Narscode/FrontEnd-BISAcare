@@ -7,7 +7,7 @@ const BISAbotButton: React.FC = () => {
       {/* Chat Icon */}
       <View style={styles.iconWrapper}>
         <Image
-          source={require("../assets/chat.png")} // put your chat.svg converted to png in assets
+          source={require("../assets/chat.png")} 
           style={styles.icon}
           resizeMode="contain"
         />
