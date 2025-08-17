@@ -1,30 +1,54 @@
-import type React from "react"
+import React from "react";
+import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
 
 const BISAbotButton: React.FC = () => {
   return (
-    <button className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white rounded-[15px] border border-[#5785FF] hover:bg-blue-50 transition-colors">
+    <TouchableOpacity style={styles.button}>
       {/* Chat Icon */}
-      <div className="w-6 h-6 relative overflow-hidden">
-        <img
-          src="/Asset/chat.svg"
-          alt="Chat icon"
-          className="w-[18px] h-4 absolute left-[3px] top-1"
-          style={{
-            filter:
-              "brightness(0) saturate(100%) invert(42%) sepia(96%) saturate(1729%) hue-rotate(217deg) brightness(98%) contrast(101%)",
-          }}
+      <View style={styles.iconWrapper}>
+        <Image
+          source={require("../assets/chat.png")} // put your chat.svg converted to png in assets
+          style={styles.icon}
+          resizeMode="contain"
         />
-      </div>
+      </View>
 
       {/* BISAbot Text */}
-      <span
-        className="text-[#5785FF] text-sm font-semibold leading-4 tracking-[0.42px]"
-        style={{ fontFamily: "Inter" }}
-      >
-        BISAbot
-      </span>
-    </button>
-  )
-}
+      <Text style={styles.text}>BISAbot</Text>
+    </TouchableOpacity>
+  );
+};
 
-export default BISAbotButton
+const styles = StyleSheet.create({
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: "#5785FF",
+  },
+  iconWrapper: {
+    width: 24,
+    height: 24,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  icon: {
+    width: 18,
+    height: 18,
+  },
+  text: {
+    color: "#5785FF",
+    fontSize: 14,
+    fontWeight: "600",
+    letterSpacing: 0.42,
+  },
+});
+
+export default BISAbotButton;
+
