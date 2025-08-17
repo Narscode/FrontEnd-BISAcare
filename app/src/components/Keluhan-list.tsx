@@ -1,69 +1,155 @@
-"use client"
-
-import { useState } from "react"
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
 
 const WorkBagIcon = () => (
-  <img src="/Asset/work-bag.svg" alt="Work bag" width="13" height="12" className="object-contain" />
-)
+  <Image
+    source={require("../assets/work-bag.png")} // convert SVG to PNG and place in assets
+    style={{ width: 13, height: 12, resizeMode: "contain" }}
+  />
+);
 
 export default function MedicalClaimsTracker() {
-  const [activeTab, setActiveTab] = useState("Diajukan")
+  const [activeTab, setActiveTab] = useState("Diajukan");
 
-  const tabs = ["Diajukan", "Diproses", "Ditanggung", "Ditolak"]
+  const tabs = ["Diajukan", "Diproses", "Ditanggung", "Ditolak"];
 
   const claimsData = Array(5).fill({
     title: "Heart Failure Indication",
     description: "Heart rate detected at 42 Bpm",
-  })
+  });
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white p-4">
+    <View style={styles.container}>
       {/* Title */}
-      <h1 className="text-xl font-bold text-black mb-4 font-roboto">Keluhan atau Gejala Terakhir</h1>
+      <Text style={styles.title}>Keluhan atau Gejala Terakhir</Text>
 
       {/* Tab Navigation */}
-      <div className="relative mb-3">
-        {/* Background */}
-        <div className="w-full h-[34px] bg-[#D4DFFF] rounded-[15px]"></div>
-
-        {/* Tab Container */}
-        <div className="absolute inset-0 flex items-center justify-between px-2">
-          {tabs.map((tab, index) => (
-            <button
+      <View style={styles.tabWrapper}>
+        <View style={styles.tabBackground} />
+        <View style={styles.tabContainer}>
+          {tabs.map((tab) => (
+            <TouchableOpacity
               key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-3 py-1 rounded-[12px] text-xs font-roboto font-bold leading-4 tracking-[0.5px] transition-colors ${
-                activeTab === tab ? "bg-white text-[#00164F]" : "text-[#36343B]"
-              }`}
+              onPress={() => setActiveTab(tab)}
+              style={[
+                styles.tabButton,
+                activeTab === tab && styles.activeTabButton,
+              ]}
             >
-              {tab}
-            </button>
+              <Text
+                style={[
+                  styles.tabText,
+                  activeTab === tab ? styles.activeTabText : styles.inactiveTabText,
+                ]}
+              >
+                {tab}
+              </Text>
+            </TouchableOpacity>
           ))}
-        </div>
-      </div>
+        </View>
+      </View>
 
       {/* Claims List */}
-      <div className="space-y-0">
-        {claimsData.map((claim, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-3 py-4 border-b border-[rgba(116,119,117,0.5)] last:border-b-0"
-          >
-            {/* Icon Container */}
-            <div className="w-[25px] h-[25px] bg-[rgba(197,220,250,0.5)] rounded-full flex items-center justify-center">
+      <FlatList
+        data={claimsData}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.claimItem}>
+            <View style={styles.iconContainer}>
               <WorkBagIcon />
-            </div>
-
-            {/* Content */}
-            <div className="flex-1">
-              <div className="text-black text-sm font-roboto font-bold leading-5 tracking-[0.1px]">{claim.title}</div>
-              <div className="text-[#444444] text-[11px] font-roboto font-bold leading-4 tracking-[0.5px]">
-                {claim.description}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+            </View>
+            <View style={styles.claimContent}>
+              <Text style={styles.claimTitle}>{item.title}</Text>
+              <Text style={styles.claimDescription}>{item.description}</Text>
+            </View>
+          </View>
+        )}
+      />
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    maxWidth: 400,
+    alignSelf: "center",
+    backgroundColor: "#fff",
+    padding: 16,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: 16,
+  },
+  tabWrapper: {
+    position: "relative",
+    marginBottom: 12,
+    height: 34,
+  },
+  tabBackground: {
+    position: "absolute",
+    width: "100%",
+    height: 34,
+    backgroundColor: "#D4DFFF",
+    borderRadius: 15,
+  },
+  tabContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 8,
+    alignItems: "center",
+  },
+  tabButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+  },
+  activeTabButton: {
+    backgroundColor: "#fff",
+  },
+  tabText: {
+    fontSize: 12,
+    fontWeight: "bold",
+    letterSpacing: 0.5,
+  },
+  activeTabText: {
+    color: "#00164F",
+  },
+  inactiveTabText: {
+    color: "#36343B",
+  },
+  claimItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(116,119,117,0.5)",
+  },
+  iconContainer: {
+    width: 25,
+    height: 25,
+    borderRadius: 50,
+    backgroundColor: "rgba(197,220,250,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+  },
+  claimContent: {
+    flex: 1,
+  },
+  claimTitle: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: 2,
+  },
+  claimDescription: {
+    fontSize: 11,
+    fontWeight: "bold",
+    color: "#444",
+  },
+});
+
