@@ -1,11 +1,13 @@
-import React from "react"
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Svg, { Path } from "react-native-svg"; // expo install react-native-svg
 
-type ClaimStepStatus = "completed" | "active" | "inactive"
+type ClaimStepStatus = "completed" | "active" | "inactive";
 
 interface ClaimStep {
-  id: string
-  label: string
-  status: ClaimStepStatus
+  id: string;
+  label: string;
+  status: ClaimStepStatus;
 }
 
 const ClaimTracker: React.FC = () => {
@@ -14,68 +16,125 @@ const ClaimTracker: React.FC = () => {
     { id: "2", label: "Review", status: "completed" },
     { id: "3", label: "Diterima", status: "active" },
     { id: "4", label: "Ditolak", status: "inactive" },
-  ]
+  ];
 
   const getCircleColor = (status: ClaimStepStatus) => {
     switch (status) {
       case "completed":
-        return "#ECF1FF" 
+        return "#ECF1FF";
       case "active":
-        return "#0391CE" 
+        return "#0391CE";
       case "inactive":
-        return "#605D64" 
+        return "#605D64";
     }
-  }
+  };
 
   const getCheckColor = (status: ClaimStepStatus) => {
     switch (status) {
       case "completed":
-        return "#0A3977" 
+        return "#0A3977";
       case "active":
-        return "#E4F0FF" 
+        return "#E4F0FF";
       case "inactive":
-        return "#938F96" 
+        return "#938F96";
     }
-  }
+  };
 
   return (
-    <div className="bg-[#FEF7FF] rounded-[15px] border border-[#003A53] p-6 w-full max-w-md mx-auto">
-      <h2 className="text-black text-base font-bold leading-6 tracking-[0.15px] mb-4 font-sans">Claim Tracker</h2>
+    <View style={styles.container}>
+      <Text style={styles.title}>Claim Tracker</Text>
 
-      <div className="flex items-center justify-between mb-4 relative">
+      {/* Steps Row */}
+      <View style={styles.stepsRow}>
         {steps.map((step, index) => (
           <React.Fragment key={step.id}>
             {/* Circle with checkmark */}
-            <div
-              className="w-[38px] h-[38px] rounded-full flex items-center justify-center relative z-10"
-              style={{ backgroundColor: getCircleColor(step.status) }}
+            <View
+              style={[
+                styles.circle,
+                { backgroundColor: getCircleColor(step.status) },
+              ]}
             >
-              <svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
+              <Svg width="15" height="11" viewBox="0 0 15 11" fill="none">
+                <Path
                   d="M1 5.5L5 9.5L14 1"
                   stroke={getCheckColor(step.status)}
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-              </svg>
-            </div>
+              </Svg>
+            </View>
 
-            {/* Connector line except after last item */}
-            {index < steps.length - 1 && <div className="flex-1 h-[1px] bg-gray-300 opacity-20 mx-2" />}
+            {/* Connector line (skip after last step) */}
+            {index < steps.length - 1 && <View style={styles.connector} />}
           </React.Fragment>
         ))}
-      </div>
+      </View>
 
-      <div className="flex justify-between">
+      {/* Labels */}
+      <View style={styles.labelsRow}>
         {steps.map((step) => (
-          <div key={step.id} className="flex-1 text-center">
-            <span className="text-black text-sm font-medium leading-5 tracking-[0.10px] font-sans">{step.label}</span>
-          </div>
+          <View key={step.id} style={styles.labelWrapper}>
+            <Text style={styles.label}>{step.label}</Text>
+          </View>
         ))}
-      </div>
-    </div>
-  )
-}
+      </View>
+    </View>
+  );
+};
 
-export default ClaimTracker
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#FEF7FF",
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: "#003A53",
+    padding: 16,
+    width: "100%",
+    maxWidth: 400,
+    alignSelf: "center",
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: 16,
+  },
+  stepsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  circle: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 10,
+  },
+  connector: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#999",
+    opacity: 0.2,
+    marginHorizontal: 8,
+  },
+  labelsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  labelWrapper: {
+    flex: 1,
+    alignItems: "center",
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#000",
+  },
+});
+
+export default ClaimTracker;
+
