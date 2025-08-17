@@ -3,12 +3,7 @@
 import { useState } from "react"
 
 const WorkBagIcon = () => (
-  <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="work-bag.svg">
-    <path
-      d="M10.5 3H9V2.5C9 1.67 8.33 1 7.5 1H5.5C4.67 1 4 1.67 4 2.5V3H2.5C1.67 3 1 3.67 1 4.5V9.5C1 10.33 1.67 11 2.5 11H10.5C11.33 11 12 10.33 12 9.5V4.5C12 3.67 11.33 3 10.5 3ZM5 2.5C5 2.22 5.22 2 5.5 2H7.5C7.78 2 8 2.22 8 2.5V3H5V2.5ZM11 9.5C11 9.78 10.78 10 10.5 10H2.5C2.22 10 2 9.78 2 9.5V4.5C2 4.22 2.22 4 2.5 4H10.5C10.78 4 11 4.22 11 4.5V9.5Z"
-      fill="#414141"
-    />
-  </svg>
+  <img src="/Asset/work-bag.svg" alt="Work bag" width="13" height="12" className="object-contain" />
 )
 
 export default function MedicalClaimsTracker() {
