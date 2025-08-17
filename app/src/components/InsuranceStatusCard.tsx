@@ -1,99 +1,73 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+const DocumentCards = () => {
+  return (
+    <div className="flex justify-center items-center gap-4 p-8">
+      {/* Slip Digital Card */}
+      <div className="w-[174px] h-[210px] relative bg-white rounded-[15px] border border-[#B2E3FF]">
+        <div
+          className="absolute left-[19px] top-[7px] w-[134px] text-center text-[#2E2E30] text-sm font-bold leading-5 tracking-[0.25px]"
+          style={{ fontFamily: "Roboto" }}
+        >
+          Slip Digital
+        </div>
 
-interface PercentageCardProps {
-  title: string;
-  percentage: number; // e.g., 80 means 80%
-  onDetailPress?: () => void;
+        <div className="absolute left-[10px] top-[33px] w-[151px] h-[113px] rounded-[15px] border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center">
+          <div className="w-[39px] h-[35px] bg-black/20 rounded-[15px] flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-700">
+              <path
+                d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div className="absolute left-[13px] top-[158px] w-[149px]">
+          <button
+            className="w-full px-[14px] py-2 bg-[#005D85] text-white text-sm font-medium leading-5 rounded-lg shadow-sm border border-[#005D85]"
+            style={{ fontFamily: "Inter" }}
+          >
+            Details
+          </button>
+        </div>
+      </div>
+
+      {/* Aju Banding Card */}
+      <div className="w-[174px] h-[210px] relative bg-white rounded-[15px] border border-[#B2E3FF]">
+        <div
+          className="absolute left-[19px] top-[7px] w-[134px] text-center text-[#2E2E30] text-sm font-bold leading-5 tracking-[0.25px]"
+          style={{ fontFamily: "Roboto" }}
+        >
+          Aju Banding
+        </div>
+
+        <div className="absolute left-[10px] top-[33px] w-[151px] h-[113px] rounded-[15px] border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center">
+          <div className="w-[39px] h-[35px] bg-black/20 rounded-[15px] flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-700">
+              <path
+                d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div className="absolute left-[13px] top-[158px] w-[149px]">
+          <button
+            className="w-full px-[14px] py-2 bg-[#005D85] text-white text-sm font-medium leading-5 rounded-lg shadow-sm border border-[#005D85]"
+            style={{ fontFamily: "Inter" }}
+          >
+            Details
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-const PercentageCard: React.FC<PercentageCardProps> = ({
-  title,
-  percentage,
-  onDetailPress,
-}) => {
-  return (
-    <View style={styles.card}>
-      {/* Title */}
-      <Text style={styles.title}>{title}</Text>
-
-      {/* Percentage */}
-      <Text style={styles.percentage}>{percentage}%</Text>
-
-      {/* Detail Button */}
-      <TouchableOpacity style={styles.detailButton} onPress={onDetailPress}>
-        <Text style={styles.detailText}>Detail</Text>
-      </TouchableOpacity>
-
-      {/* Circular Background (two layers) */}
-      <View style={[styles.circle, styles.circleLight]} />
-      <View style={[styles.circle, styles.circleDark]} />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  card: {
-    width: 171,
-    height: 120,
-    borderRadius: 15,
-    overflow: 'hidden',
-    backgroundColor: 'rgba(217, 217, 217, 0.14)',
-    position: 'relative',
-    padding: 10,
-  },
-  title: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: '#2E2E30',
-    lineHeight: 20,
-    letterSpacing: 0.1,
-  },
-  percentage: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#000',
-    lineHeight: 40,
-    position: 'absolute',
-    bottom: 15,
-    left: 15,
-  },
-  detailButton: {
-    position: 'absolute',
-    right: 10,
-    top: 10,
-    backgroundColor: '#005D85',
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    shadowColor: '#101828',
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    elevation: 1,
-  },
-  detailText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#fff',
-    lineHeight: 20,
-    fontFamily: 'Inter',
-  },
-  circle: {
-    width: 58,
-    height: 58,
-    borderRadius: 9999,
-    position: 'absolute',
-    top: 39,
-    right: 15,
-    transform: [{ rotate: '48deg' }],
-  },
-  circleLight: {
-    backgroundColor: '#F7F2FF',
-  },
-  circleDark: {
-    backgroundColor: '#BB94FF',
-  },
-});
-
-export default PercentageCard;
+export default DocumentCards
