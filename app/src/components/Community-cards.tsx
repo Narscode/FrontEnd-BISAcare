@@ -1,35 +1,91 @@
-import LihatSelengkapnyaButton from "./lihat-selengkapnya-button"
+import React from "react";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import LihatSelengkapnyaButton from "./lihat-selengkapnya-button"; // harus di-convert juga ke RN
 
-const CommunityServices = () => {
+const CommunityServices: React.FC = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 bg-gray-100">
-      <h2 className="text-2xl font-bold text-black mb-6 font-roboto">Layanan Komunitas!</h2>
+    <View style={styles.container}>
+      <Text style={styles.title}>Layanan Komunitas!</Text>
 
-      <div className="flex gap-4 overflow-x-auto pb-4 mb-6">
+      {/* Horizontal Scroll for cards */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
         {[1, 2, 3].map((index) => (
-          <div key={index} className="flex-shrink-0 relative">
-            <img
-              src="/Asset/allianz.jpg"
-              alt={`Allianz Indonesia ${index}`}
-              className="w-[139px] h-[163px] rounded-[15px] shadow-[0px_1px_2px_rgba(0,0,0,0.30)]"
+          <View key={index} style={styles.cardWrapper}>
+            <Image
+              source={require("../assets/allianz.jpg")} // convert /Asset/allianz.jpg ke assets folder
+              style={styles.cardImage}
             />
-            <div className="absolute bottom-0 left-0 right-0 h-[34px] bg-[rgba(235.52,240.51,255,0.87)] rounded-b-[15px] flex items-center justify-center">
-              <span
-                className="text-black text-[14px] font-roboto font-medium leading-[20px] tracking-[0.10px]"
-                style={{ fontFamily: "Roboto" }}
-              >
-                Allianz Indonesia
-              </span>
-            </div>
-          </div>
+            <View style={styles.cardOverlay}>
+              <Text style={styles.cardText}>Allianz Indonesia</Text>
+            </View>
+          </View>
         ))}
-      </div>
+      </ScrollView>
 
-      <div className="flex justify-center">
+      <View style={styles.buttonWrapper}>
         <LihatSelengkapnyaButton />
-      </div>
-    </div>
-  )
-}
+      </View>
+    </View>
+  );
+};
 
-export default CommunityServices
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    maxWidth: 900,
+    alignSelf: "center",
+    padding: 24,
+    backgroundColor: "#f3f4f6", // bg-gray-100
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: 24,
+  },
+  scrollContent: {
+    paddingBottom: 16,
+  },
+  cardWrapper: {
+    marginRight: 16,
+    position: "relative",
+  },
+  cardImage: {
+    width: 139,
+    height: 163,
+    borderRadius: 15,
+    resizeMode: "cover",
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+  },
+  cardOverlay: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 34,
+    backgroundColor: "rgba(236,240,255,0.87)",
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#000",
+  },
+  buttonWrapper: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+
+export default CommunityServices;
+
