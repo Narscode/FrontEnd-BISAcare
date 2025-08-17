@@ -1,20 +1,20 @@
-import React from 'react';
-import { View } from 'react-native';
-import ClaimTracker from './src/components/ClaimTracker.tsx';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
-const App = () => {
+export default function App() {
   return (
-    <View>
-      <ClaimTracker
-        steps={[
-          { id: "1", label: "Dikirim", status: "completed" },
-          { id: "2", label: "Review", status: "completed" },
-          { id: "3", label: "Diterima", status: "current" },
-          { id: "4", label: "Ditolak", status: "pending" },
-        ]}
-      />
+    <View style={styles.container}>
+      <Text>Hello BISAcare Mobile!</Text>
+      <StatusBar style="auto" />
     </View>
   );
-};
+}
 
-export default App;12
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
