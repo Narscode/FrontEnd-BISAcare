@@ -1,73 +1,72 @@
-const DocumentCards = () => {
+"use client"
+
+import type React from "react"
+
+interface PercentageCardProps {
+  title: string
+  percentage: number
+  onDetailPress?: () => void
+}
+
+const PercentageCard: React.FC<PercentageCardProps> = ({ title, percentage, onDetailPress }) => {
   return (
-    <div className="flex justify-center items-center gap-4 p-8">
-      {/* Slip Digital Card */}
-      <div className="w-[174px] h-[210px] relative bg-white rounded-[15px] border border-[#B2E3FF]">
-        <div
-          className="absolute left-[19px] top-[7px] w-[134px] text-center text-[#2E2E30] text-sm font-bold leading-5 tracking-[0.25px]"
+    <div className="relative w-[171px] h-[120px] rounded-[15px] overflow-hidden bg-gradient-to-br from-[rgba(217,217,217,0.14)] to-[rgba(115,115,115,0.14)] p-[10px]">
+      {/* Title */}
+      <div className="absolute left-[10px] top-[17px]">
+        <span
+          className="text-[#2E2E30] text-[14px] font-bold leading-[20px] tracking-[0.1px] max-w-[85px] block"
           style={{ fontFamily: "Roboto" }}
         >
-          Slip Digital
-        </div>
-
-        <div className="absolute left-[10px] top-[33px] w-[151px] h-[113px] rounded-[15px] border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center">
-          <div className="w-[39px] h-[35px] bg-black/20 rounded-[15px] flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-700">
-              <path
-                d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-        </div>
-
-        <div className="absolute left-[13px] top-[158px] w-[149px]">
-          <button
-            className="w-full px-[14px] py-2 bg-[#005D85] text-white text-sm font-medium leading-5 rounded-lg shadow-sm border border-[#005D85]"
-            style={{ fontFamily: "Inter" }}
-          >
-            Details
-          </button>
-        </div>
+          {title}
+        </span>
       </div>
 
-      {/* Aju Banding Card */}
-      <div className="w-[174px] h-[210px] relative bg-white rounded-[15px] border border-[#B2E3FF]">
-        <div
-          className="absolute left-[19px] top-[7px] w-[134px] text-center text-[#2E2E30] text-sm font-bold leading-5 tracking-[0.25px]"
-          style={{ fontFamily: "Roboto" }}
-        >
-          Aju Banding
-        </div>
-
-        <div className="absolute left-[10px] top-[33px] w-[151px] h-[113px] rounded-[15px] border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center">
-          <div className="w-[39px] h-[35px] bg-black/20 rounded-[15px] flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-700">
-              <path
-                d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-        </div>
-
-        <div className="absolute left-[13px] top-[158px] w-[149px]">
-          <button
-            className="w-full px-[14px] py-2 bg-[#005D85] text-white text-sm font-medium leading-5 rounded-lg shadow-sm border border-[#005D85]"
-            style={{ fontFamily: "Inter" }}
-          >
-            Details
-          </button>
-        </div>
+      {/* Percentage */}
+      <div className="absolute left-[15px] top-[60px]">
+        <span className="text-black text-[32px] font-bold leading-[40px]" style={{ fontFamily: "Roboto" }}>
+          {percentage}%
+        </span>
       </div>
+
+      {/* Detail Button */}
+      <button
+        onClick={onDetailPress}
+        className="absolute right-[10px] top-[9px] px-[14px] py-[8px] bg-[#005D85] rounded-[8px] shadow-[0px_1px_2px_rgba(16,24,40,0.05)] border border-[#005D85]"
+      >
+        <span className="text-white text-[14px] font-medium leading-[20px]" style={{ fontFamily: "Inter" }}>
+          Detail
+        </span>
+      </button>
+
+      {/* Circular Progress Background */}
+      <div className="absolute right-[15px] top-[52px] w-[48px] h-[48px] rounded-full bg-[#F7F2FF] rotate-[48deg]" />
+
+      {/* Circular Progress Fill */}
+      <div
+        className="absolute right-[15px] top-[52px] w-[48px] h-[48px] rounded-full bg-[#BB94FF] rotate-[48deg]"
+        style={{
+          clipPath: `polygon(50% 50%, 50% 0%, ${50 + (percentage / 100) * 50}% 0%, ${50 + (percentage / 100) * 50}% ${50 - (percentage / 100) * 50}%, 50% 50%)`,
+        }}
+      />
     </div>
   )
 }
 
-export default DocumentCards
+const PercentageCards: React.FC = () => {
+  const handleDetailPress = (cardType: string) => {
+    console.log(`[v0] Detail pressed for ${cardType}`)
+  }
+
+  return (
+    <div className="flex justify-center items-center gap-4 p-8">
+      <PercentageCard title="Ditanggung" percentage={80} onDetailPress={() => handleDetailPress("Ditanggung")} />
+      <PercentageCard
+        title="Tanggung Sendiri"
+        percentage={80}
+        onDetailPress={() => handleDetailPress("Tanggung Sendiri")}
+      />
+    </div>
+  )
+}
+
+export default PercentageCards
