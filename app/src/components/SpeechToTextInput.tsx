@@ -1,110 +1,235 @@
-"use client"
+// App.tsx (React Native / Expo project)
 
-import type React from "react"
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native"
+import Voice from "@react-native-voice/voice"
 
-interface SpeechToTextInputProps {
-  onTextReceived: (text: string) => void
-  placeholder?: string
-  disabled?: boolean
-}
-
-const SpeechToTextInput: React.FC<SpeechToTextInputProps> = ({
-  onTextReceived,
-  placeholder = "Tap to start speaking...",
-  disabled = false,
-}) => {
+export default function HealthInsuranceVoiceApp() {
+  const [inputText, setInputText] = useState("Input...")
   const [isListening, setIsListening] = useState(false)
-  const [transcribedText, setTranscribedText] = useState("")
-  const [recognition, setRecognition] = useState<any | null>(null)
-  const [isSupported, setIsSupported] = useState(false)
+  const [showResults, setShowResults] = useState(false)
 
   useEffect(() => {
-    // Check if speech recognition is supported
-    if (typeof window !== "undefined") {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-      if (SpeechRecognition) {
-        const recognitionInstance = new SpeechRecognition()
-        recognitionInstance.continuous = false
-        recognitionInstance.interimResults = false
-        recognitionInstance.lang = "en-US"
-
-        recognitionInstance.onresult = (event) => {
-          const transcript = event.results[0][0].transcript
-          setTranscribedText(transcript)
-          onTextReceived(transcript)
-          setIsListening(false)
-        }
-
-        recognitionInstance.onerror = (event) => {
-          console.error("Speech recognition error:", event.error)
-          setIsListening(false)
-        }
-
-        recognitionInstance.onend = () => {
-          setIsListening(false)
-        }
-
-        setRecognition(recognitionInstance)
-        setIsSupported(true)
+    Voice.onSpeechStart = () => setIsListening(true)
+    Voice.onSpeechEnd = () => setIsListening(false)
+    Voice.onSpeechResults = (event) => {
+      if (event.value && event.value.length > 0) {
+        setInputText(event.value[0])
       }
     }
-  }, [onTextReceived])
-
-  const startListening = () => {
-    if (disabled || !recognition || !isSupported) return
-
-    setIsListening(true)
-    recognition.start()
-  }
-
-  const stopListening = () => {
-    if (recognition) {
-      recognition.stop()
+    Voice.onSpeechError = (e) => {
+      console.error("Speech error:", e)
+      setIsListening(false)
     }
-    setIsListening(false)
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners)
+    }
+  }, [])
+
+  const startListening = async () => {
+    try {
+      setInputText("")
+      await Voice.start("id-ID") // Indonesian
+    } catch (e) {
+      console.error("Start error:", e)
+    }
   }
 
-  if (!isSupported) {
-    return (
-      <div className="p-4">
-        <div className="flex items-center justify-center p-4 bg-gray-100 rounded-xl">
-          <span className="text-gray-500">Speech recognition not supported in this browser</span>
-        </div>
-      </div>
-    )
+  const stopListening = async () => {
+    try {
+      await Voice.stop()
+    } catch (e) {
+      console.error("Stop error:", e)
+    }
   }
 
   return (
-    <div className="p-4">
-      <button
-        className={`
-          flex items-center justify-center w-full p-4 rounded-xl font-semibold text-white transition-all duration-200
-          ${
-            isListening
-              ? "bg-red-500 hover:bg-red-600"
-              : disabled
-                ? "bg-gray-400 opacity-60 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600"
-          }
-        `}
-        onClick={isListening ? stopListening : startListening}
-        disabled={disabled}
-      >
-        <span className="text-xl mr-2">{isListening ? "🔴" : "🎤"}</span>
-        <span className={disabled ? "text-gray-300" : "text-white"}>
-          {isListening ? "Listening... Tap to stop" : placeholder}
-        </span>
-      </button>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Apa yang Kamu Rasakan Sekarang?</Text>
+        <Text style={styles.subtitle}>
+          Ketik atau ucapkan keluhanmu, dan kami bantu cek apakah kondisimu bisa ditanggung oleh asuransi.
+        </Text>
+      </View>
 
-      {transcribedText && (
-        <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-          <div className="text-xs text-gray-600 font-semibold mb-1">Transcribed:</div>
-          <div className="text-sm text-gray-800 leading-5">{transcribedText}</div>
-        </div>
+      {/* Voice Button */}
+      <View style={styles.section}>
+        <TouchableOpacity
+          style={[styles.button, isListening ? styles.buttonDisabled : null]}
+          onPress={isListening ? stopListening : startListening}
+          disabled={isListening}
+        >
+          <Text style={styles.buttonText}>
+            {isListening ? "🔴 Sedang Mendengarkan..." : "🎤 Gunakan Voiceover"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Input Area */}
+      <View style={styles.section}>
+        <View style={styles.inputBox}>
+          <TextInput
+            value={inputText}
+            onChangeText={setInputText}
+            multiline
+            placeholder="Input..."
+            placeholderTextColor="#888"
+            style={styles.textInput}
+          />
+        </View>
+      </View>
+
+      {/* Check Response */}
+      <View style={styles.section}>
+        <TouchableOpacity style={styles.checkButton} onPress={() => setShowResults(true)}>
+          <Text style={styles.checkButtonText}>Cek Tanggapan ➡️</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Results Section */}
+      {showResults && (
+        <>
+          {/* Probability Card */}
+          <View style={styles.section}>
+            <View style={styles.probabilityCard}>
+              <Text style={styles.probabilityText}>80%</Text>
+              <Text style={styles.resultHighlight}> Kemungkinan Kondisimu </Text>
+              <Text style={styles.claimText}>Dapat Diklaim</Text>
+            </View>
+          </View>
+
+          {/* Diagnosis Card */}
+          <View style={styles.section}>
+            <View style={styles.diagnosisCard}>
+              <Text style={styles.diagnosisTitle}>Kemungkinan Diagnosis:</Text>
+              <Text style={styles.diagnosisText}>Infeksi saluran pernapasan atas / Faringitis</Text>
+
+              <Text style={styles.diagnosisTitle}>📄 Polis Kamu Menanggung:</Text>
+              <Text style={styles.bullet}>🟢 Konsultasi Dokter Umum</Text>
+              <Text style={styles.bullet}>🟢 Obat demam & batuk</Text>
+              <Text style={styles.bullet}>
+                🟡 Tes Lab Dasar (ditanggung sebagian, tergantung hasil pemeriksaan dokter)
+              </Text>
+              <Text style={styles.bullet}>
+                🔴 Rawat Inap → Belum bisa diklaim saat ini, kecuali ada rujukan lanjutan
+              </Text>
+            </View>
+          </View>
+        </>
       )}
-    </div>
+    </ScrollView>
   )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFBFF",
+  },
+  header: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: "#000",
+    lineHeight: 20,
+  },
+  section: {
+    paddingHorizontal: 20,
+    marginBottom: 15,
+  },
+  button: {
+    backgroundColor: "#005D85",
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  buttonDisabled: {
+    backgroundColor: "#999",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+  inputBox: {
+    height: 150,
+    backgroundColor: "#F9F6FF",
+    borderRadius: 12,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#EBE0FF",
+  },
+  textInput: {
+    flex: 1,
+    color: "#000",
+    fontSize: 14,
+    textAlignVertical: "top",
+  },
+  checkButton: {
+    backgroundColor: "#005D85",
+    padding: 14,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  checkButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  probabilityCard: {
+    backgroundColor: "#F9F6FF",
+    borderWidth: 2,
+    borderColor: "#5785FF",
+    borderRadius: 12,
+    padding: 20,
+    alignItems: "center",
+  },
+  probabilityText: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#5785FF",
+  },
+  resultHighlight: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000",
+  },
+  claimText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#5785FF",
+  },
+  diagnosisCard: {
+    backgroundColor: "#fff",
+    borderWidth: 2,
+    borderColor: "#5785FF",
+    borderRadius: 12,
+    padding: 20,
+  },
+  diagnosisTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 10,
+  },
+  diagnosisText: {
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  bullet: {
+    fontSize: 14,
+    marginBottom: 6,
+  },
+})
+
 }
 
 export default SpeechToTextInput
