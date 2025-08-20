@@ -1,16 +1,12 @@
 import React from "react";
-import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
 const BISAbotButton: React.FC = () => {
   return (
     <TouchableOpacity style={styles.button}>
       {/* Chat Icon */}
       <View style={styles.iconWrapper}>
-        <Image
-          source={require("../assets/chat.png")} 
-          style={styles.icon}
-          resizeMode="contain"
-        />
+        <Text style={styles.icon}>💬</Text>
       </View>
 
       {/* BISAbot Text */}
@@ -39,8 +35,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    width: 18,
-    height: 18,
+    fontSize: 16,
+    textAlign: 'center',
   },
   text: {
     color: "#5785FF",

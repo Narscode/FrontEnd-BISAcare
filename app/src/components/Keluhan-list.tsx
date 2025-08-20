@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, StyleSheet } from "react-native";
 
 const WorkBagIcon = () => (
-  <Image
-    source={require("../assets/work-bag.png")} // convert SVG to PNG and place in assets
-    style={{ width: 13, height: 12, resizeMode: "contain" }}
-  />
+  <Text style={{ fontSize: 12, textAlign: 'center' }}>💼</Text>
 );
 
 export default function MedicalClaimsTracker() {
