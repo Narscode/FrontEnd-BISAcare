@@ -1,56 +1,67 @@
 // App.tsx (React Native / Expo project)
 
-import React, { useState, useEffect } from "react"
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from "react-native"
-import Voice from "@react-native-voice/voice"
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from 'react-native';
+import Voice from "@react-native-voice/voice";
 
 export default function HealthInsuranceVoiceApp() {
-  const [inputText, setInputText] = useState("Input...")
-  const [isListening, setIsListening] = useState(false)
-  const [showResults, setShowResults] = useState(false)
+  const [inputText, setInputText] = useState("Input...");
+  const [isListening, setIsListening] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
-    Voice.onSpeechStart = () => setIsListening(true)
-    Voice.onSpeechEnd = () => setIsListening(false)
+    Voice.onSpeechStart = () => setIsListening(true);
+    Voice.onSpeechEnd = () => setIsListening(false);
     Voice.onSpeechResults = (event) => {
       if (event.value && event.value.length > 0) {
-        setInputText(event.value[0])
+        setInputText(event.value[0]);
       }
-    }
+    };
     Voice.onSpeechError = (e) => {
-      console.error("Speech error:", e)
-      setIsListening(false)
-    }
+      console.error("Speech error:", e);
+      setIsListening(false);
+    };
 
     return () => {
-      Voice.destroy().then(Voice.removeAllListeners)
-    }
-  }, [])
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
 
   const startListening = async () => {
     try {
-      setInputText("")
-      await Voice.start("id-ID") // Indonesian
+      setInputText("");
+      await Voice.start("id-ID"); // Indonesian
     } catch (e) {
-      console.error("Start error:", e)
+      console.error("Start error:", e);
     }
-  }
+  };
 
   const stopListening = async () => {
     try {
-      await Voice.stop()
+      await Voice.stop();
     } catch (e) {
-      console.error("Stop error:", e)
+      console.error("Stop error:", e);
     }
-  }
+  };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ paddingBottom: 40 }}
+    >
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>Apa yang Kamu Rasakan Sekarang?</Text>
         <Text style={styles.subtitle}>
-          Ketik atau ucapkan keluhanmu, dan kami bantu cek apakah kondisimu bisa ditanggung oleh asuransi.
+          Ketik atau ucapkan keluhanmu, dan kami bantu cek apakah kondisimu bisa
+          ditanggung oleh asuransi.
         </Text>
       </View>
 
@@ -83,7 +94,10 @@ export default function HealthInsuranceVoiceApp() {
 
       {/* Check Response */}
       <View style={styles.section}>
-        <TouchableOpacity style={styles.checkButton} onPress={() => setShowResults(true)}>
+        <TouchableOpacity
+          style={styles.checkButton}
+          onPress={() => setShowResults(true)}
+        >
           <Text style={styles.checkButtonText}>Cek Tanggapan ➡️</Text>
         </TouchableOpacity>
       </View>
@@ -95,7 +109,10 @@ export default function HealthInsuranceVoiceApp() {
           <View style={styles.section}>
             <View style={styles.probabilityCard}>
               <Text style={styles.probabilityText}>80%</Text>
-              <Text style={styles.resultHighlight}> Kemungkinan Kondisimu </Text>
+              <Text style={styles.resultHighlight}>
+                {' '}
+                Kemungkinan Kondisimu{' '}
+              </Text>
               <Text style={styles.claimText}>Dapat Diklaim</Text>
             </View>
           </View>
@@ -104,23 +121,29 @@ export default function HealthInsuranceVoiceApp() {
           <View style={styles.section}>
             <View style={styles.diagnosisCard}>
               <Text style={styles.diagnosisTitle}>Kemungkinan Diagnosis:</Text>
-              <Text style={styles.diagnosisText}>Infeksi saluran pernapasan atas / Faringitis</Text>
+              <Text style={styles.diagnosisText}>
+                Infeksi saluran pernapasan atas / Faringitis
+              </Text>
 
-              <Text style={styles.diagnosisTitle}>📄 Polis Kamu Menanggung:</Text>
+              <Text style={styles.diagnosisTitle}>
+                📄 Polis Kamu Menanggung:
+              </Text>
               <Text style={styles.bullet}>🟢 Konsultasi Dokter Umum</Text>
               <Text style={styles.bullet}>🟢 Obat demam & batuk</Text>
               <Text style={styles.bullet}>
-                🟡 Tes Lab Dasar (ditanggung sebagian, tergantung hasil pemeriksaan dokter)
+                🟡 Tes Lab Dasar (ditanggung sebagian, tergantung hasil
+                pemeriksaan dokter)
               </Text>
               <Text style={styles.bullet}>
-                🔴 Rawat Inap → Belum bisa diklaim saat ini, kecuali ada rujukan lanjutan
+                🔴 Rawat Inap → Belum bisa diklaim saat ini, kecuali ada rujukan
+                lanjutan
               </Text>
             </View>
           </View>
         </>
       )}
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -228,8 +251,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 6,
   },
-})
-
-}
-
-export default SpeechToTextInput
+});

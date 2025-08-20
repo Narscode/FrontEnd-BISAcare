@@ -13,15 +13,18 @@ const EligibilityResultBox: React.FC<EligibilityResultBoxProps> = ({
   recommendedAction,
 }) => {
   return (
-    <View style={[styles.container, isEligible ? styles.eligible : styles.ineligible]}>
+    <View
+      style={[
+        styles.container,
+        isEligible ? styles.eligible : styles.ineligible,
+      ]}
+    >
       <Text style={styles.title}>
         {isEligible ? '✅ Eligible for Benefits' : '❌ Not Eligible'}
       </Text>
-      
-      {reason && (
-        <Text style={styles.reason}>{reason}</Text>
-      )}
-      
+
+      {reason && <Text style={styles.reason}>{reason}</Text>}
+
       {recommendedAction && (
         <View style={styles.actionContainer}>
           <Text style={styles.actionLabel}>Recommended Action:</Text>

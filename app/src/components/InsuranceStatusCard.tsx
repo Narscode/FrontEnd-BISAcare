@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import Svg, { Circle } from "react-native-svg";
 
 interface PercentageCardProps {
@@ -9,19 +8,18 @@ interface PercentageCardProps {
   onDetailPress?: () => void;
 }
 
-const PercentageCard: React.FC<PercentageCardProps> = ({ title, percentage, onDetailPress }) => {
+const PercentageCard: React.FC<PercentageCardProps> = ({
+  title,
+  percentage,
+  onDetailPress,
+}) => {
   const radius = 24;
   const strokeWidth = 6;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <LinearGradient
-      colors={["rgba(217,217,217,0.14)", "rgba(115,115,115,0.14)"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.card}
-    >
+    <View style={styles.card}>
       {/* Title */}
       <Text style={styles.title}>{title}</Text>
 
@@ -57,7 +55,7 @@ const PercentageCard: React.FC<PercentageCardProps> = ({ title, percentage, onDe
           />
         </Svg>
       </View>
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -68,8 +66,16 @@ const PercentageCards: React.FC = () => {
 
   return (
     <View style={styles.row}>
-      <PercentageCard title="Ditanggung" percentage={80} onDetailPress={() => handleDetailPress("Ditanggung")} />
-      <PercentageCard title="Tanggung Sendiri" percentage={40} onDetailPress={() => handleDetailPress("Tanggung Sendiri")} />
+      <PercentageCard
+        title="Ditanggung"
+        percentage={80}
+        onDetailPress={() => handleDetailPress('Ditanggung')}
+      />
+      <PercentageCard
+        title="Tanggung Sendiri"
+        percentage={40}
+        onDetailPress={() => handleDetailPress('Tanggung Sendiri')}
+      />
     </View>
   );
 };
@@ -89,6 +95,7 @@ const styles = StyleSheet.create({
     padding: 10,
     position: "relative",
     overflow: "hidden",
+    backgroundColor: "rgba(217,217,217,0.14)",
   },
   title: {
     position: "absolute",
@@ -129,4 +136,3 @@ const styles = StyleSheet.create({
 });
 
 export default PercentageCards;
-

@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
 interface AppealLetterSection {
   id: string;
@@ -28,7 +34,7 @@ const AppealLetterHelper: React.FC<AppealLetterHelperProps> = ({
       <Text style={styles.subtitle}>
         Fill out the sections below to create your appeal letter:
       </Text>
-      
+
       {sections.map((section) => (
         <View key={section.id} style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>
@@ -45,14 +51,22 @@ const AppealLetterHelper: React.FC<AppealLetterHelperProps> = ({
           />
         </View>
       ))}
-      
+
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.previewButton} onPress={onPreviewLetter}>
+        <TouchableOpacity
+          style={styles.previewButton}
+          onPress={onPreviewLetter}
+        >
           <Text style={styles.previewButtonText}>👁️ Preview Letter</Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.generateButton} onPress={onGenerateLetter}>
-          <Text style={styles.generateButtonText}>📄 Generate Final Letter</Text>
+
+        <TouchableOpacity
+          style={styles.generateButton}
+          onPress={onGenerateLetter}
+        >
+          <Text style={styles.generateButtonText}>
+            📄 Generate Final Letter
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

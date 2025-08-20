@@ -12,7 +12,10 @@ interface OCRScanOptions {
 }
 
 export const useOCRScan = () => {
-  const scanDocument = async (_imageUri: string, _options?: OCRScanOptions): Promise<OCRResult> => {
+  const scanDocument = async (
+    _imageUri: string,
+    _options?: OCRScanOptions
+  ): Promise<OCRResult> => {
     // Placeholder implementation
     // In a real implementation, this would integrate with an OCR service
     return new Promise((resolve) => {

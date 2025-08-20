@@ -13,24 +13,27 @@ interface DenialExplainerProps {
   denialReason: DenialReason;
 }
 
-const DenialExplainer: React.FC<DenialExplainerProps> = ({ denialCode, denialReason }) => {
+const DenialExplainer: React.FC<DenialExplainerProps> = ({
+  denialCode,
+  denialReason,
+}) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Understanding Your Denial</Text>
         <Text style={styles.code}>Code: {denialCode}</Text>
       </View>
-      
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>What Happened</Text>
         <Text style={styles.text}>{denialReason.explanation}</Text>
       </View>
-      
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>What This Means</Text>
         <Text style={styles.text}>{denialReason.whatItMeans}</Text>
       </View>
-      
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Your Next Steps</Text>
         {denialReason.nextSteps.map((step, index) => (

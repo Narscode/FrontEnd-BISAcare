@@ -14,7 +14,10 @@ interface AppealOptionsProps {
   onSelectOption: (optionId: string) => void;
 }
 
-const AppealOptions: React.FC<AppealOptionsProps> = ({ options, onSelectOption }) => {
+const AppealOptions: React.FC<AppealOptionsProps> = ({
+  options,
+  onSelectOption,
+}) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'easy':
@@ -44,8 +47,10 @@ const AppealOptions: React.FC<AppealOptionsProps> = ({ options, onSelectOption }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Appeal Options</Text>
-      <Text style={styles.subtitle}>Choose the best option for your situation:</Text>
-      
+      <Text style={styles.subtitle}>
+        Choose the best option for your situation:
+      </Text>
+
       {options.map((option) => (
         <TouchableOpacity
           key={option.id}
@@ -54,14 +59,23 @@ const AppealOptions: React.FC<AppealOptionsProps> = ({ options, onSelectOption }
         >
           <View style={styles.optionHeader}>
             <Text style={styles.optionTitle}>{option.title}</Text>
-            <View style={[styles.difficultyBadge, { backgroundColor: getDifficultyColor(option.difficulty) }]}>
-              <Text style={styles.difficultyText}>{getDifficultyText(option.difficulty)}</Text>
+            <View
+              style={[
+                styles.difficultyBadge,
+                { backgroundColor: getDifficultyColor(option.difficulty) },
+              ]}
+            >
+              <Text style={styles.difficultyText}>
+                {getDifficultyText(option.difficulty)}
+              </Text>
             </View>
           </View>
-          
+
           <Text style={styles.optionDescription}>{option.description}</Text>
-          
-          <Text style={styles.timeLimit}>⏰ Time limit: {option.timeLimit}</Text>
+
+          <Text style={styles.timeLimit}>
+            ⏰ Time limit: {option.timeLimit}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>

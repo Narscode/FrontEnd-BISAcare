@@ -1,7 +1,14 @@
-import React from "react"
-import { View, Text, Image, FlatList, StyleSheet, Dimensions } from "react-native"
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 
-const { width } = Dimensions.get("window")
+const { width } = Dimensions.get("window");
 
 const testimonials = [
   {
@@ -21,11 +28,10 @@ const testimonials = [
   {
     id: "3",
     image: require("./assets/testimoni.jpg"),
-    quote:
-      "Asuransi ini membuat keluarga saya terbantu dalam kondisi darurat.",
+    quote: "Asuransi ini membuat keluarga saya terbantu dalam kondisi darurat.",
     author: "Siti",
   },
-]
+];
 
 const TestimonialCard = ({ item }: { item: (typeof testimonials)[0] }) => {
   return (
@@ -41,8 +47,8 @@ const TestimonialCard = ({ item }: { item: (typeof testimonials)[0] }) => {
         <Text style={styles.author}>- {item.author}</Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
 export default function TestimonialSection() {
   return (
@@ -63,7 +69,7 @@ export default function TestimonialSection() {
         contentContainerStyle={{ paddingHorizontal: 10 }}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -124,5 +130,4 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     color: "#374151",
   },
-})
-
+});

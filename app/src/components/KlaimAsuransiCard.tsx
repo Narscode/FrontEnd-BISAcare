@@ -20,15 +20,13 @@ const InsuranceClaimCard: React.FC = () => {
       <div style={styles.buttonContainer}>
         <div style={styles.button}>
           <div style={styles.buttonText}>KLAIM SEKARANG</div>
-          <div style={styles.iconContainer}>
-            {/* Placeholder for icon */}
-          </div>
+          <div style={styles.iconContainer}>{/* Placeholder for icon */}</div>
         </div>
       </div>
-      <VoiceModeButton 
-        label="Voice Mode" 
-        icon={<span>🎤</span>} 
-        onPress={() => console.log('Voice mode activated')} 
+      <VoiceModeButton
+        label="Voice Mode"
+        icon={<span>🎤</span>}
+        onPress={() => console.log('Voice mode activated')}
       />
     </div>
   );

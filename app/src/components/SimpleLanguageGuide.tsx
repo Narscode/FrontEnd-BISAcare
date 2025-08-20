@@ -6,7 +6,10 @@ interface SimpleLanguageGuideProps {
   explanation: string;
 }
 
-const SimpleLanguageGuide: React.FC<SimpleLanguageGuideProps> = ({ term, explanation }) => {
+const SimpleLanguageGuide: React.FC<SimpleLanguageGuideProps> = ({
+  term,
+  explanation,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.term}>{term}</Text>

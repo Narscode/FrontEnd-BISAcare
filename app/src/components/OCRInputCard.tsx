@@ -7,17 +7,25 @@ interface OCRInputCardProps {
   title: string;
 }
 
-const OCRInputCard: React.FC<OCRInputCardProps> = ({ onScanPress, onManualInputPress, title }) => {
+const OCRInputCard: React.FC<OCRInputCardProps> = ({
+  onScanPress,
+  onManualInputPress,
+  title,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>Choose how you'd like to provide this information:</Text>
-      
+      <Text style={styles.subtitle}>
+        Choose how you'd like to provide this information:
+      </Text>
+
       <TouchableOpacity style={styles.option} onPress={onScanPress}>
         <Text style={styles.optionText}>📷 Scan Document</Text>
-        <Text style={styles.optionSubtext}>Take a photo to extract information automatically</Text>
+        <Text style={styles.optionSubtext}>
+          Take a photo to extract information automatically
+        </Text>
       </TouchableOpacity>
-      
+
       <TouchableOpacity style={styles.option} onPress={onManualInputPress}>
         <Text style={styles.optionText}>✏️ Enter Manually</Text>
         <Text style={styles.optionSubtext}>Type the information yourself</Text>

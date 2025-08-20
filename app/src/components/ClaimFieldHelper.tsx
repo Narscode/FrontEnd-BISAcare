@@ -19,15 +19,17 @@ const ClaimFieldHelper: React.FC<ClaimFieldHelperProps> = ({
       <TouchableOpacity style={styles.helpButton} onPress={onShowHelp}>
         <Text style={styles.helpButtonText}>❓ Help with {fieldName}</Text>
       </TouchableOpacity>
-      
+
       <View style={styles.helpContent}>
         <Text style={styles.helpText}>{helpText}</Text>
-        
+
         {examples.length > 0 && (
           <View style={styles.examplesContainer}>
             <Text style={styles.examplesTitle}>Examples:</Text>
             {examples.map((example, index) => (
-              <Text key={index} style={styles.example}>• {example}</Text>
+              <Text key={index} style={styles.example}>
+                • {example}
+              </Text>
             ))}
           </View>
         )}

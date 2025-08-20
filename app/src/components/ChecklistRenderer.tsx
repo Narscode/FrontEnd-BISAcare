@@ -13,30 +13,31 @@ interface ChecklistRendererProps {
   title?: string;
 }
 
-const ChecklistRenderer: React.FC<ChecklistRendererProps> = ({ items, title }) => {
-  const completedCount = items.filter(item => item.completed).length;
+const ChecklistRenderer: React.FC<ChecklistRendererProps> = ({
+  items,
+  title,
+}) => {
+  const completedCount = items.filter((item) => item.completed).length;
   const totalCount = items.length;
 
   return (
     <View style={styles.container}>
-      {title && (
-        <Text style={styles.title}>{title}</Text>
-      )}
-      
+      {title && <Text style={styles.title}>{title}</Text>}
+
       <Text style={styles.progress}>
         Progress: {completedCount}/{totalCount} items completed
       </Text>
-      
+
       {items.map((item) => (
         <View key={item.id} style={styles.itemContainer}>
-          <Text style={styles.checkbox}>
-            {item.completed ? '✅' : '⬜'}
-          </Text>
-          <Text style={[
-            styles.itemText,
-            item.completed && styles.completedText,
-            item.required && styles.requiredText
-          ]}>
+          <Text style={styles.checkbox}>{item.completed ? '✅' : '⬜'}</Text>
+          <Text
+            style={[
+              styles.itemText,
+              item.completed && styles.completedText,
+              item.required && styles.requiredText,
+            ]}
+          >
             {item.text}
             {item.required && <Text style={styles.requiredIndicator}> *</Text>}
           </Text>

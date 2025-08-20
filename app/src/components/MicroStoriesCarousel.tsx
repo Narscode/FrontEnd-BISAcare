@@ -11,9 +11,15 @@ interface MicroStoriesCarouselProps {
   stories: MicroStory[];
 }
 
-const MicroStoriesCarousel: React.FC<MicroStoriesCarouselProps> = ({ stories = [] }) => {
+const MicroStoriesCarousel: React.FC<MicroStoriesCarouselProps> = ({
+  stories = [],
+}) => {
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.carousel}>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      style={styles.carousel}
+    >
       {stories.map((story) => (
         <View key={story.id} style={styles.storyCard}>
           <Text style={styles.storyTitle}>{story.title}</Text>

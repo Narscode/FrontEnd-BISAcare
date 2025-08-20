@@ -12,9 +12,7 @@ const CustomButton: React.FC<ButtonProps> = ({ label, icon, onPress }) => {
     <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
       <View style={styles.button}>
         <Text style={styles.buttonLabel}>{label}</Text>
-        <View style={styles.iconContainer}>
-          {icon}
-        </View>
+        <View style={styles.iconContainer}>{icon}</View>
       </View>
     </TouchableOpacity>
   );

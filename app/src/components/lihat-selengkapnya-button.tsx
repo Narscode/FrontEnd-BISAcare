@@ -1,6 +1,6 @@
-import React from "react"
-import { TouchableOpacity, Text, View, StyleSheet } from "react-native"
-import Svg, { Path } from "react-native-svg"
+import React from "react";
+import { TouchableOpacity, Text, View, StyleSheet } from "react-native";
+import Svg, { Path } from "react-native-svg";
 
 const LihatSelengkapnyaButton = () => {
   return (
@@ -18,8 +18,8 @@ const LihatSelengkapnyaButton = () => {
         </Svg>
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-})
+});
 
-export default LihatSelengkapnyaButton
-
+export default LihatSelengkapnyaButton;

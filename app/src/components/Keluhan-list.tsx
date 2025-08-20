@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+} from "react-native";
 
 const WorkBagIcon = () => (
   <Text style={{ fontSize: 12, textAlign: 'center' }}>💼</Text>
@@ -36,7 +42,9 @@ export default function MedicalClaimsTracker() {
               <Text
                 style={[
                   styles.tabText,
-                  activeTab === tab ? styles.activeTabText : styles.inactiveTabText,
+                  activeTab === tab
+                    ? styles.activeTabText
+                    : styles.inactiveTabText,
                 ]}
               >
                 {tab}
@@ -149,4 +157,3 @@ const styles = StyleSheet.create({
     color: "#444",
   },
 });
-

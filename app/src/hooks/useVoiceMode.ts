@@ -21,7 +21,7 @@ export const useVoiceMode = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const toggleVoiceMode = useCallback(() => {
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
       isEnabled: !prev.isEnabled,
     }));
@@ -29,7 +29,7 @@ export const useVoiceMode = () => {
 
   const updateSpeechRate = useCallback((rate: number) => {
     const clampedRate = Math.max(0.5, Math.min(2.0, rate));
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
       speechRate: clampedRate,
     }));
@@ -37,39 +37,42 @@ export const useVoiceMode = () => {
 
   const updateSpeechPitch = useCallback((pitch: number) => {
     const clampedPitch = Math.max(0.5, Math.min(2.0, pitch));
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
       speechPitch: clampedPitch,
     }));
   }, []);
 
   const toggleAutoRead = useCallback(() => {
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
       autoReadText: !prev.autoReadText,
     }));
   }, []);
 
-  const speak = useCallback(async (text: string): Promise<void> => {
-    if (!config.isEnabled || !text.trim()) {
-      return;
-    }
+  const speak = useCallback(
+    async (text: string): Promise<void> => {
+      if (!config.isEnabled || !text.trim()) {
+        return;
+      }
 
-    setIsLoading(true);
-    
-    try {
-      // Placeholder implementation
-      // In a real implementation, this would integrate with device TTS API
-      await new Promise(resolve => {
-        setTimeout(resolve, text.length * 50); // Simulate speech duration
-      });
-    } catch (error) {
-      console.error('Text-to-speech error:', error);
-      setIsSupported(false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [config.isEnabled]);
+      setIsLoading(true);
+
+      try {
+        // Placeholder implementation
+        // In a real implementation, this would integrate with device TTS API
+        await new Promise((resolve) => {
+          setTimeout(resolve, text.length * 50); // Simulate speech duration
+        });
+      } catch (error) {
+        console.error('Text-to-speech error:', error);
+        setIsSupported(false);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [config.isEnabled]
+  );
 
   const stopSpeaking = useCallback(() => {
     // Placeholder implementation
@@ -84,7 +87,7 @@ export const useVoiceMode = () => {
   }, []);
 
   const setVoice = useCallback((voiceName: string) => {
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
       voice: voiceName,
     }));

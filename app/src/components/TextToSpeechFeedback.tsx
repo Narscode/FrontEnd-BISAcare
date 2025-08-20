@@ -53,27 +53,28 @@ const TextToSpeechFeedback: React.FC<TextToSpeechFeedbackProps> = ({
           <Text style={styles.text}>{text}</Text>
         </View>
       )}
-      
+
       {showControls && (
         <View style={styles.controls}>
           <TouchableOpacity
             style={[styles.controlButton, isPlaying && styles.stopButton]}
             onPress={isPlaying ? stopText : playText}
           >
-            <Text style={styles.controlIcon}>
-              {isPlaying ? '⏹️' : '🔊'}
-            </Text>
+            <Text style={styles.controlIcon}>{isPlaying ? '⏹️' : '🔊'}</Text>
             <Text style={styles.controlText}>
               {isPlaying ? 'Stop' : 'Listen'}
             </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.rateButton} onPress={adjustPlaybackRate}>
+
+          <TouchableOpacity
+            style={styles.rateButton}
+            onPress={adjustPlaybackRate}
+          >
             <Text style={styles.rateText}>Speed: {playbackRate}x</Text>
           </TouchableOpacity>
         </View>
       )}
-      
+
       {isPlaying && (
         <View style={styles.playingIndicator}>
           <Text style={styles.playingText}>🎵 Playing audio...</Text>

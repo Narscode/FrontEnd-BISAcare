@@ -26,7 +26,8 @@ const SymptomInput: React.FC<SymptomInputProps> = ({
         textAlignVertical={multiline ? 'top' : 'center'}
       />
       <Text style={styles.hint}>
-        Be as specific as possible. Include when symptoms started, severity, and any relevant details.
+        Be as specific as possible. Include when symptoms started, severity, and
+        any relevant details.
       </Text>
     </View>
   );
